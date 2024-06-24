@@ -1,0 +1,19 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org/">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>사용자 개인 페이지</title>
+</head>
+<body>
+<h1 th:text="|${username} 사용자의 개인 페이지입니다!|"></h1>
+<form th:action="@{/logout/{username}(username=${username})}" method="post">
+    <button type="submit">로그아웃</button>
+</form>
+
+<button><a href="/">메인 페이지</a></button>
+</body>
+
+</html>

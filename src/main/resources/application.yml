@@ -1,0 +1,13 @@
+
+spring:
+  application:
+    name: blog
+
+  datasource:
+    url: jdbc:mysql://localhost:3306/blogproject
+    username: root
+    password: 12qwaszx!@
+    driver-class-name: com.mysql.cj.jdbc.Driver
+
+server:
+  port: 9999
