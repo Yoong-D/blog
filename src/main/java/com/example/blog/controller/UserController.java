@@ -28,53 +28,44 @@ public class UserController {
         return "index";
     }
 
-    // 로그인 폼
+    // 로그인 폼 - 구현 완료
     @GetMapping("/loginform")
     public String loginform(){
         return "login";
     }
 
-    // 로그인 폼 처리
+    // 로그인 처리 + 쿠기 생성
     @PostMapping("/login")
-    public String login(@RequestParam(name = "username") String name, @RequestParam(name = "password") String password, Model model, HttpServletResponse response){
-        if(userService.user(name,password) ){
-            // 로그인 성공 시 사용자를 담을 쿠키 생성 - 사용자 id 담음
-            Cookie cookie = new Cookie("user", name);
-            cookie.setPath("/");
-            response.addCookie(cookie);
-            userService.setLink(true);
-            return "redirect:/@" + name ;
-        }else{
-            model.addAttribute("error", "로그인에 실패하였습니다.");
-            return "/error";
-        }
-    }
-    @PostMapping("/logout/{username}")
-    public String logout(@PathVariable String username, HttpServletRequest request, HttpServletResponse response) {
-        Cookie[] cookies = request.getCookies();
+    public String login(@RequestParam("username") String username, @RequestParam("password") String password, Model model, HttpServletResponse response){
+        User member = userService.findByUsername(username);
+        if(member != null && member.getPassword().equals(password)){ // 패스워드가 일치한다면
+            Cookie cookie = new Cookie("user",username); // user라는 쿠키에 아이디 넣기
+            cookie.setPath("/"); // 모든 경로에서 접근 가능하게 설정
+            cookie.setHttpOnly(true); // 자바스크립트로 쿠키에 접근 할수 없게 막기
+            response.addCookie(cookie); // 응답으로 브라우저에 쿠키값 넘기기
+            return "redirect:/@" + username ; // 로그인 성공시 사용자 상세 페이지로 리다이렉트
 
-        if (cookies != null) {
-            for (Cookie cookie : cookies) {
-                if (username.equals(cookie.getValue())) {
-                    cookie.setMaxAge(0);
-                    cookie.setPath("/"); // 쿠키가 설정된 경로를 명확히 지정
-                    response.addCookie(cookie);
-                    userService.setLink(false);
-                    break; // 찾은 쿠키를 삭제하고 루프 종료
-                }
-            }
+        }else{
+            model.addAttribute("message", "아이디 또는 비밀번호를 다시 입력하세요.");
+            return "/login";
         }
-        return "redirect:/";
     }
-    // 로그인 후 사용자 페이지 -> http://도메인/@{useranme}
+    // 사용자 상세 페이지 -> http://도메인/@{useranme}
+    // 사용자 인증 쿠키를 검증하여 인증된 사용자만 접근 가능 -> 구현해야한다.
     @GetMapping("/@{username}")
-    public String userPage(@PathVariable String username, Model model, HttpServletRequest request ){
-        if(!userService.userPage(username, request)){
-            model.addAttribute("error","당신은 이 페이지에 접근할 권한이 없습니다.");
-            return "error";
-        }
-        model.addAttribute("username", username);
+    public String blog(@PathVariable("username") String useranme, Model model){
+        model.addAttribute("username");
         return "blog";
+    }
+
+    // 같은 이름의 쿠키가 2개 이상 있을수 없다는 특성을 사용하여 로그아웃 구현
+    @GetMapping("/logout")
+    public String logout(HttpServletResponse response) {
+        Cookie cookie = new Cookie("user", "");
+        cookie.setPath("/");
+        cookie.setMaxAge(0); // 유지 기간 0초
+        response.addCookie(cookie);
+        return "redirect:/";
     }
 
     // 회원 가입 폼
@@ -91,13 +82,8 @@ public class UserController {
                           @RequestParam("email")String email,
                           @RequestParam(name = "errormessage",required = false) String errorMessage,
                           Model model){
-        if(errorMessage != null &&errorMessage.equals("true")){
-            userService.addUser(new User(username,password,name,email));
             return "redirect:/welcome";
-        }else{
-            model.addAttribute("error", errorMessage);
-            return "error";
-        }
+
 
     }
 
@@ -105,6 +91,12 @@ public class UserController {
     @GetMapping("/welcome")
     public String welcome(){
         return "welcome";
+    }
+
+    // 에러페이지
+    @GetMapping("/error")
+    public String error(){
+        return "error";
     }
 
 

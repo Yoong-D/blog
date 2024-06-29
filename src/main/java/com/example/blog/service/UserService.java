@@ -1,6 +1,6 @@
 package com.example.blog.service;
 
-import com.example.blog.config.UserContext;
+import com.example.blog.filter.UserContext;
 import com.example.blog.domain.User;
 import com.example.blog.repository.UserRepository;
 import jakarta.servlet.http.Cookie;
@@ -20,23 +20,12 @@ public class UserService {
 
     public Boolean link = false;
 
-
-    // 로그인 구현
+    // 사용자 정보 조회
     @Transactional
-    public boolean user(String userName, String password){
-        if(userRepository.findByUsername(userName).isPresent()){ // 해당 아이디가 DB에 존재하는가?
-            if(userRepository.correctPassword(userName).equals(password)){ // 해당 아이디에 매핑되는 패스워드와, 입력받은 패스워드가 동일한가?
-                // 로그인 완료시 userHolder에 현재 쓰레드와 연관된 사용자 정보(아이디)를 저장
-                UserContext.setUser(userName);
-                return true;
-            }else{
-                return false;
-            }
-
-        }else{ // 해당 아이디가 DB에 존재하지 않으면 무조건 로그인 실패
-            return false;
-        }
+    public User findByUsername(String username){
+        return userRepository.findByUsername(username);
     }
+
     // 개인페이지가 본인의 개인 페이지가 맞는가?
     @Transactional
     public boolean userPage(String username, HttpServletRequest request){

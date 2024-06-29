@@ -17,10 +17,8 @@ public class Role {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id; // 권한별 id
-    @Column(nullable = false)
-    private String name; // 권한 명
 
-    @ManyToMany(mappedBy = "roles")
-    private Set<User> users = new HashSet<>();
+    @Column(nullable = false, unique = true, length = 50)
+    private String name; // 권한 명
 
 }

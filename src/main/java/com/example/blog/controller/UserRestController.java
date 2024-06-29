@@ -1,16 +1,10 @@
 package com.example.blog.controller;
 
-import com.example.blog.config.UserContext;
-import com.example.blog.domain.User;
-import com.example.blog.repository.UserRepository;
+import com.example.blog.domain.DuplicateChecker;
 import com.example.blog.service.UserService;
-import jakarta.servlet.http.Cookie;
-import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
 
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 @RestController

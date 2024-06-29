@@ -1,4 +1,4 @@
-package com.example.blog.controller;
+package com.example.blog.domain;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

@@ -11,7 +11,7 @@ import java.util.Set;
 
 
 @Entity
-@Table(name="users")
+@Table(name = "users")
 @NoArgsConstructor
 @Setter
 @Getter
@@ -19,27 +19,25 @@ public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id; // 사용자 식별 id
-    @Column(nullable = false, updatable = true, length = 20)
+    @Column(nullable = false, updatable = true, length = 50)
     private String username; // 사용자 id
-    @Column(nullable = false, length = 12)
+    @Column(nullable = false, length = 100)
     private String password; // 비밀번호
-    @Column(nullable = false, length= 10)
+    @Column(nullable = false, length = 50)
     private String name; // 이름(닉네임)
-    @Column(nullable = false)
+    @Column(nullable = false, length = 100)
     private String email; // 이메일
-    private LocalDateTime registration_date; // 생성일
-    private String blog_name; // 블로그 명
+    @Column(name = "registration_date", nullable = false, updatable = false)
+    private LocalDateTime registrationDate = LocalDateTime.now(); // 생성일
+    @Column(name = "blog_name", length = 100, nullable = false)
+    private String blog_name = username + "log"; // 블로그 명(default-id.log)
 
-    public User(String username, String password, String name, String email) {
-        this.username = username;
-        this.password = password;
-        this.name = name;
-        this.email = email;
-        registration_date = LocalDateTime.now();
-    }
 
     @ManyToMany
-    @JoinTable(name="user_roles",joinColumns = @JoinColumn(name="usernmaes"),
-            inverseJoinColumns = @JoinColumn(name="id"))
-    private Set<Role> roles = new HashSet<>();
+    @JoinTable(
+            name = "user_roles",
+            joinColumns = @JoinColumn(name = "user_id"),
+            inverseJoinColumns = @JoinColumn(name = "role_id"))
+    private Set<Role> roles;
+
 }
