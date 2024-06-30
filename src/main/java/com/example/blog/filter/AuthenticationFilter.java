@@ -75,10 +75,10 @@ public class AuthenticationFilter implements Filter {
                 return;
             }
 
-            // 만약 동일하지 않다면, 접근 제한 페이지로 이동
+            // 만약 동일하지 않다면, 접근 제한 페이로 이동
             if(path.equals("/@"+userid)){
                 log.info("미 로그인 또는 다른 사용자 상세 페이지 접근 차단");
-                response.sendRedirect("/error");
+                response.sendRedirect("/access-denied");
                 return;
             }
             chain.doFilter(servletRequest, servletResponse); // 다음 필터로 요청 전달

@@ -7,6 +7,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
 
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -15,10 +16,11 @@ import org.springframework.web.bind.annotation.*;
 
 @Controller
 @RequiredArgsConstructor
+@Slf4j
 public class UserController {
     private final UserService userService;
 
-
+// [ 로그인 ]
     // 메인 화면(로그인X)
     @GetMapping("/")
     public String LoginMain(){
@@ -46,7 +48,7 @@ public class UserController {
             return "redirect:/@" + username ; // 로그인 성공시 사용자 상세 페이지로 리다이렉트
 
         }else{
-            model.addAttribute("message", "아이디 또는 비밀번호를 다시 입력하세요.");
+            model.addAttribute("error_message", "아이디 또는 비밀번호를 다시 입력하세요.");
             return "/login";
         }
     }
@@ -67,11 +69,11 @@ public class UserController {
         response.addCookie(cookie);
         return "redirect:/";
     }
-
+// [ 회원 가입 ]
     // 회원 가입 폼
-    @GetMapping("/adduser")
+    @GetMapping("/signup")
     public String addUser(User user, Model model){
-        return "adduser";
+        return "signup";
     }
 
     // 회원 가입 정보를 받아 들여 회원 등록을 수행하고, 성공시 환영 메시지 보여주는 화면으로 리다이렉트
@@ -80,9 +82,15 @@ public class UserController {
                           @RequestParam("password") String password,
                           @RequestParam("name") String name,
                           @RequestParam("email")String email,
-                          @RequestParam(name = "errormessage",required = false) String errorMessage,
+                          @RequestParam("error_message") String error_message,
                           Model model){
-            return "redirect:/welcome";
+
+            if(error_message.equals("none")){ // 에러 메시지가 없으면 회원 가입 완료
+                return "redirect:/welcome";
+            }else{
+                model.addAttribute("error_message", error_message); // 에러 메시지가 있다면 error 페이지로 이동
+                return "/error";
+            }
 
 
     }
@@ -95,9 +103,14 @@ public class UserController {
 
     // 에러페이지
     @GetMapping("/error")
-    public String error(){
+    public String error(Model model){
         return "error";
     }
 
+// [ 권한 ]
+    @GetMapping("access-denied")
+    public String access_denied(){
+        return "access-denied";
+    }
 
 }

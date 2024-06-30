@@ -44,13 +44,14 @@ public class UserService {
     public void addUser(User user){
         userRepository.save(user);
     }
+
     //이름 중복 확인
     @Transactional
     public boolean isUserExists(String username) {
         // 데이터베이스에 사용자 중복 여부를 확인하는 로직
         return userRepository.existsByUsername(username);
     }
-    //이메일
+    //이메일 중복 확인
     @Transactional
     public boolean isEmailExists(String email) {
         // 데이터베이스에 사용자 중복 여부를 확인하는 로직

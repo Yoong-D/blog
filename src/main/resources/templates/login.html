@@ -9,30 +9,30 @@
 </head>
 <body>
 <!--아이디 입력창, 암호 입력창, 로그인 버튼 -->
-<form action="/login" method="post" id = "loginForm">
+<form action="/login" method="post" id="loginForm">
     <fieldset>
-        <legend>로그인</legend> <br>
+        <legend>로그인</legend>
+        <br>
         <lable for="username">아이디</lable>
-        <input placeholder="아이디를 입력하세요." id = "username" name = "username" type = "text" required><br>
-        <lable for ="password">비밀번호</lable>
-        <input placeholder="비밀번호를 입력하세요." id = "password" name = "password" type = "password" ><br>
+        <input placeholder="아이디를 입력하세요." id="username" name="username" type="text" required><br>
+        <lable for="password">비밀번호</lable>
+        <input placeholder="비밀번호를 입력하세요." id="password" name="password" type="password"><br>
         <input type="submit" value="로그인" id="sendCookieButton">
-        <p hidden id = "message" th:text="${message}"></p>
+        <p hidden id="error_message" th:text="${error_message}">오류 메시지 출력</p>
     </fieldset>
 </form>
 <br>
-<button><a href = "/adduser"> 회원 가입 </a> </button>
+<button><a href="/signup"> 회원 가입 </a></button>
 <script>
     // 로그인 시, 해당 사용자가 없거나, 비밀번호가 틀릴시 에러메시지 창 띄우기
-    document.addEventListener("DOMContentLoaded", function() {
-        // HTML 요소 가져오기
-        let element = document.getElementById("message");
-        // 요소의 텍스트 콘텐츠를 변수에 저장
-        let message = element.textContent;
-        if(message.length>1){
-            alert(message);
-        }
-    });
+    // HTML 요소 가져오기
+    let element = document.getElementById("error_message");
+    // 요소의 텍스트 콘텐츠를 변수에 저장
+    let message = element.textContent;
+    if (message.length > 1) {
+        alert(message);
+    }
+
 </script>
 </body>
 </html>
