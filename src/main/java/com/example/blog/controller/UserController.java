@@ -78,14 +78,12 @@ public class UserController {
 
     // 회원 가입 정보를 받아 들여 회원 등록을 수행하고, 성공시 환영 메시지 보여주는 화면으로 리다이렉트
     @PostMapping("/userreg")
-    public String userReg(@RequestParam("username") String username,
-                          @RequestParam("password") String password,
-                          @RequestParam("name") String name,
-                          @RequestParam("email")String email,
+    public String userReg(@ModelAttribute("user") User user,
                           @RequestParam("error_message") String error_message,
                           Model model){
 
             if(error_message.equals("none")){ // 에러 메시지가 없으면 회원 가입 완료
+                userService.addUser(user);
                 return "redirect:/welcome";
             }else{
                 model.addAttribute("error_message", error_message); // 에러 메시지가 있다면 error 페이지로 이동
