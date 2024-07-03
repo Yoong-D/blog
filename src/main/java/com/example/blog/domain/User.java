@@ -38,7 +38,6 @@ public class User {
     @Column(name = "blog_name", length = 100, nullable = false)
     private String blog_name = username + "log"; // 블로그 명(default-id.log)
 
-    public User(String )
     @ManyToMany
     @JoinTable(
             name = "user_roles",

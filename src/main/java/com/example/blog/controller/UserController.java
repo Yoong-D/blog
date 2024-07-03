@@ -24,9 +24,6 @@ public class UserController {
     // 메인 화면(로그인X)
     @GetMapping("/")
     public String LoginMain(){
-        if(userService.getLink()){ // 서비스 링크 변수를 통해 true면 로그인중, false면 로그아웃중으로 판단
-            return "afterlogin";
-        }
         return "index";
     }
 

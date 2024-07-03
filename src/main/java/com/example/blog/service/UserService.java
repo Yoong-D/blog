@@ -48,8 +48,22 @@ public class UserService {
         //role 추가 - 기본적으로 생성될 때는 일반 유저 권한 부여
         Role userRole = roleRepository.findByName("ROLE_USER");
         user.setRoles(Collections.singleton(userRole));
+        //password 암호화
+        //user.setPassword(passwordEncoder.encode(user.getPassword()));
         return userRepository.save(user);
     }
 
+    //이름 중복 확인
+    @Transactional
+    public boolean isUserExists(String username) {
+        // 데이터베이스에 사용자 중복 여부를 확인하는 로직
+        return userRepository.existsByUsername(username);
+    }
+    //이메일 중복 확인
+    @Transactional
+    public boolean isEmailExists(String email) {
+        // 데이터베이스에 사용자 중복 여부를 확인하는 로직
+        return userRepository.existsByEmail(email);
+    }
 
 }
