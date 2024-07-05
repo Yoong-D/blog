@@ -6,7 +6,6 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.time.LocalDateTime;
-import java.util.HashSet;
 import java.util.Set;
 
 
@@ -38,7 +37,7 @@ public class User {
     @Column(name = "blog_name", length = 100, nullable = false)
     private String blog_name = username + "log"; // 블로그 명(default-id.log)
 
-    @ManyToMany
+    @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(
             name = "user_roles",
             joinColumns = @JoinColumn(name = "user_id"),

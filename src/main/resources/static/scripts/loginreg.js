@@ -6,8 +6,7 @@ const error_message = document.getElementById('error_message'); // 에러 메시
 let id_verification_btn = false; // 아아디 중복 버튼을 눌렀는가?
 let email_verification_btn = false; // 이메일 중복 버튼을 눌렀는가?
 let id_error_message = "none"; // 아이디 관련 메시지
-let email_error_message="none";// 이메일 관련 메시지
-
+let email_error_message = "none";// 이메일 관련 메시지
 // 아이디 중복 검증
 id_duplication.addEventListener('click', function (event) {
     let username = document.getElementById('username').value; // id값 가져오기
@@ -36,8 +35,8 @@ id_duplication.addEventListener('click', function (event) {
         })
         .catch(error => { // bad request error
             // 아이디 중복 알림창 alert을 무시하고, 제출 버튼을 클릭시 error.html에 해당 오류가 출력될 예정.
-                error_message.value  = error.message; // restapi에서 받은 에러 메시지 넣기
-                id_error_message = "duplicate id";
+            error_message.value = error.message; // restapi에서 받은 에러 메시지 넣기
+            id_error_message = "duplicate id";
             alert(error.message);
         });
 });
@@ -63,12 +62,12 @@ email_duplication.addEventListener('click', function (event) {
             // 중복된 것은 api에서 에러로 처리하여 catch 블록에서 처리할 것
             if (!data.exists) {
                 error_message.value = "none";
-                email_error_message  = "none";
+                email_error_message = "none";
                 alert('해당 이메일은 사용가능합니다.');
             }
         })
         .catch(error => { // bad request error
-            error_message.value  = error.message; // restapi에서 받은 에러 메시지 넣기
+            error_message.value = error.message; // restapi에서 받은 에러 메시지 넣기
             email_error_message = "duplicate email";
             alert(error.message);
         });
@@ -81,34 +80,30 @@ submitButton.addEventListener('click', function (event) {
     const password = document.getElementById('password').value; // 비밀번호
     const again_password = document.getElementById('again_password').value; // 비밀번호 확인
 
-    if(id_verification_btn === false && email_verification_btn === false){
+    if (id_verification_btn === false && email_verification_btn === false) {
         event.preventDefault(); // 기본 폼 제출 동작을 막음
         alert('아이디와 이메일 중복 확인을 해주세요.');
-    }
-    else if(id_verification_btn === false){
+    } else if (id_verification_btn === false) {
         event.preventDefault(); // 기본 폼 제출 동작을 막음
         alert('아이디 중복 확인을 해주세요.');
-    }
-    else if(email_verification_btn === false){
+    } else if (email_verification_btn === false) {
         event.preventDefault(); // 기본 폼 제출 동작을 막음
         alert('이메일 중복 확인을 해주세요.');
     }
 
-    if(id_error_message === "duplicate id" && email_error_message === "duplicate email"){
+    if (id_error_message === "duplicate id" && email_error_message === "duplicate email") {
         event.preventDefault(); // 기본 폼 제출 동작을 막음
         alert('아이디와 이메일은 중복될 수 없습니다. ');
-    }
-    else if(id_error_message === "duplicate id"){
+    } else if (id_error_message === "duplicate id") {
         event.preventDefault(); // 기본 폼 제출 동작을 막음
         alert('아이디는 중복될 수 없습니다.');
-    }
-    else if(email_error_message === "duplicate e-mail"){
+    } else if (email_error_message === "duplicate e-mail") {
         event.preventDefault(); // 기본 폼 제출 동작을 막음
-        alert('이메일은 중복될 수 없습니다.');
+        alert('이메일은 중복될 수 없습니다. ');
     }
     // 비밀번호와 확인 비밀번호가 다를 경우, error 페이지로 이동
     if (password !== again_password) {
         // error.html 에서 표시될 에러 페이지
-        error_message.value = "비밀번호와 비밀번호 확인 값이 다릅니다.<br> 다시 회원가입을 진행해주세요.";
+        error_message.value = "비밀번호와 비밀번호 확인 값이 다릅니다.";
     }
 });

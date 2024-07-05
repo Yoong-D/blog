@@ -2,11 +2,11 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org/">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport"
-          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>회원가입</title>
-    <script src="/loginVerification.js" defer></script>
+    <script src="/scripts/loginreg.js" defer></script>
 </head>
 <body>
 <!--아이디, 암호, 암호 확인, 이름, 이메일 회원 가입 -->
@@ -15,7 +15,8 @@
         <legend>회원 가입</legend>
         <label for="username">아이디</label>
         <input placeholder="아이디를 입력해주세요." type="text" id="username" name="username" required>
-        <button id="id_duplication">중복 확인</button><br>
+        <button id="id_duplication">중복 확인</button>
+        <br>
         <label for="password">암호</label>
         <input placeholder="비밀번호를 입력해주세요." type="password" id="password" name="password" required><br>
         <label for="again_password">암호 확인</label>
@@ -24,7 +25,8 @@
         <input placeholder="사용할 이름을 입력해주세요." type="text" id="name" name="name" required><br>
         <label for="email">이메일</label>
         <input placeholder="이메일을 입력해주세요." type="email" id="email" name="email" required>
-        <button id="email_duplication">중복 확인</button><br><br><br>
+        <button id="email_duplication">중복 확인</button>
+        <br><br><br>
         <input type="submit" value="회원가입" id="submit">
         <input type="hidden" id="error_message" name="error_message" value="none">
     </fieldset>
