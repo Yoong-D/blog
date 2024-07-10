@@ -2,8 +2,9 @@ package com.example.blog.repository;
 
 import com.example.blog.domain.User;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
 
-
+@Repository
 public interface UserRepository extends JpaRepository<User, Long> {
     // 해당 아이디를 가진 사용자 찾기
     User findByUsername(String username);

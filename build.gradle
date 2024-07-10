@@ -31,6 +31,17 @@ dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-web'
     implementation 'org.springframework.boot:spring-boot-starter-security'
     implementation 'org.thymeleaf.extras:thymeleaf-extras-springsecurity6:3.1.2.RELEASE'
+    // Jakarta Bean Validation API: 자바 객체에 대한 유효성 검사를 위한 API
+    implementation 'jakarta.validation:jakarta.validation-api:3.0.2'
+    // JJWT (Java JSON Web Token) API: JWT 생성 및 파싱을 위한 API
+    implementation group: 'io.jsonwebtoken', name: 'jjwt-api', version: '0.11.5'
+    // JJWT 구현체: JJWT API를 실제로 구현한 라이브러리
+    runtimeOnly group: 'io.jsonwebtoken', name: 'jjwt-impl', version: '0.11.5'
+    // JJWT Jackson 지원: JJWT와 Jackson을 통합하여 JSON 처리를 지원하는 라이브러리
+    runtimeOnly group: 'io.jsonwebtoken', name: 'jjwt-jackson', version: '0.11.5'
+    // Gson: 자바 객체를 JSON으로 직렬화하고 JSON을 자바 객체로 역직렬화하기 위한 라이브러리
+    implementation 'com.google.code.gson:gson'
+
     compileOnly 'org.projectlombok:lombok'
     //developmentOnly 'org.springframework.boot:spring-boot-devtools'
     runtimeOnly 'com.mysql:mysql-connector-j'

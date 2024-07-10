@@ -2,6 +2,7 @@ package com.example.blog.service;
 
 import com.example.blog.domain.Role;
 import com.example.blog.domain.User;
+import com.example.blog.repository.RefreshTokenRepository;
 import com.example.blog.repository.RoleRepository;
 import com.example.blog.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
@@ -10,6 +11,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Collections;
+import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -23,10 +25,15 @@ public class UserService {
         return passwordEncoder.encode(password);
     }
 
-    // 사용자 찾기
+    // 아이디로 사용자 찾기
     @Transactional(readOnly = true)
     public User findByUsername(String username) {
         return userRepository.findByUsername(username);
+    }
+    // 주키(id)로 사용자 찾기
+    @Transactional(readOnly = true)
+    public Optional<User> findUser(Long id){
+        return userRepository.findById(id);
     }
 
     // 회원 가입 완료 시 유저 추가
@@ -57,5 +64,4 @@ public class UserService {
         // 데이터베이스에 사용자 중복 여부를 확인하는 로직
         return userRepository.existsByEmail(email);
     }
-
 }

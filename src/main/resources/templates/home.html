@@ -1,0 +1,37 @@
+<!doctype html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Blog</title>
+</head>
+<body>
+<div sec:authorize="!isAuthenticated()">
+    <h1>로그인 전 메인 페이지 </h1>
+    <div>
+        <button>로고</button>
+        <button>검색</button>
+        <!--    로그인 버튼 클릭시 http://도메인/loginform으로 이동 -->
+        <button><a href="/loginform">로그인</a></button>
+
+        <ul>
+            <li>
+                <button>게시글</button>
+            </li>
+            <li>
+                <button>게시글</button>
+            </li>
+        </ul>
+    </div>
+</div>
+
+<div sec:authorize="isAuthenticated()">
+    <h1>로그인 후 메인 페이지</h1>
+    <h1> <span sec:authentication="name"></span>님 로그인 완료(수정 예정)</h1>
+    <button><a href="/logout"> 로그아웃</a></button>
+</div>
+
+</body>
+</html>

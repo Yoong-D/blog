@@ -3,5 +3,14 @@ GET https://examples.http-client.intellij.net/get
     ?generated-in=IntelliJ IDEA
 
 ###
-GET https://localhost/api/users/123
-Accept:aplication/json
+POST https://localhost:9999/api/userreg
+Content-Type: application/json
+Accept: application/json
+
+{
+  "username": "exampleUsername",
+  "password": "examplePassword123!",
+  "againPassword": "examplePassword",
+  "name" : "spdla",
+  "email" : "sadlk@asldk"
+}
