@@ -4,6 +4,7 @@ package com.example.blog.service;
 import com.example.blog.domain.RefreshToken;
 import com.example.blog.repository.RefreshTokenRepository;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -12,6 +13,7 @@ import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
+@Slf4j
 public class RefreshTokenService {
     private final RefreshTokenRepository refreshTokenRepository;
 
@@ -28,8 +30,9 @@ public class RefreshTokenService {
     }
 
     //refreshToken db에서 삭제
-    @Transactional(readOnly = true)
+    @Transactional(readOnly = false)
     public void deleteRefreshToken(String refreshToken){
+        log.info("DB : refreshToken 삭제 ");
         refreshTokenRepository.findByValue(refreshToken).ifPresent(refreshTokenRepository::delete);
     }
 
