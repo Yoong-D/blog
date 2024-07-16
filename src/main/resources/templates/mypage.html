@@ -8,7 +8,7 @@
     <title>마이페이지</title>
 </head>
 <body>
-<div sec:authorize="isAuthenticated()">
+<div>
     <h1 sec:authentication="name"> 사용자의 개인 페이지입니다!</h1>
     <p>당신의 롤은 : <span sec:authentication="principal.authorities"></span></p>
     <p>상세정보 :: </p>
@@ -21,9 +21,7 @@
     </ul>
     <button><a href="/logout"> 로그아웃</a></button>
     <button><a href="/">메인 페이지</a></button>
-</div>
-<div sec:authorize="!isAuthenticated()">
-    <p>로그인 되지 않았습니다. </p> <a th:href="@{/login}">로그인 </a>해주세요^^
+    <button><a href ="/postform">글쓰기</a></button>
 </div>
 </body>
 

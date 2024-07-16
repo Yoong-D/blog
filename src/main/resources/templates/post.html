@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <!-- ck에디터 소스 -->
+    <script src="https://cdn.ckeditor.com/ckeditor5/31.1.0/classic/ckeditor.js">
+    <script src="/scripts/ckeditor/ko.js" ></script>
+    <script src="/scripts/ckeditor/postEditor.js" defer></script>
+    <title>글쓰기</title>
+
+</head>
+<body>
+
+<form action="/api/postform" method="post" id="postForm">
+    <input type="text" name="post_title" id="post_title" placeholder="글 제목을 입력하세요"><br>
+    <input type="text" name="post_tag" id="post_tag" placeholder="글의 태그를 입력하세요"><br>
+    <input type="text" name="post_series" id="post_series" placeholder="시리즈를 입력하세요">
+    <div id="post_content">
+    </div>
+    <input type="submit" id = post_submit>
+</form>
+
+</body>
+</html>

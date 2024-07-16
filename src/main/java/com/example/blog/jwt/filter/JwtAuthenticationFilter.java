@@ -19,6 +19,7 @@ import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.stereotype.Component;
 import org.springframework.util.StringUtils;
 import org.springframework.web.filter.OncePerRequestFilter;
 import java.io.IOException;
@@ -28,11 +29,12 @@ import java.util.stream.Collectors;
 
 @RequiredArgsConstructor
 @Slf4j
+@Component
 public class JwtAuthenticationFilter extends OncePerRequestFilter {
     private final JwtTokenizer jwtTokenizer;
 
     // HTTP 요청에서 JWT 토큰 추출하기
-    private String getToken(HttpServletRequest request) {
+    public String getToken(HttpServletRequest request) {
         // HTTP 요청 헤더에서 Authorization(권한) 값 추출
         String authorization = request.getHeader("Authorization");
 

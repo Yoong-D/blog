@@ -1,4 +1,4 @@
-package com.example.blog.repository;
+package com.example.blog.repository.accountRepository;
 
 import com.example.blog.domain.User;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -6,8 +6,9 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface UserRepository extends JpaRepository<User, Long> {
-    // 해당 아이디를 가진 사용자 찾기
+    // 사용자 아이디 조회
     User findByUsername(String username);
+
 
     // 해당 id가 이미 존재 하는가?
     boolean existsByUsername(String username);

@@ -1,4 +1,4 @@
-package com.example.blog.dto;
+package com.example.blog.dto.AccountDto;
 
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.Pattern;

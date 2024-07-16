@@ -1,11 +1,16 @@
-package com.example.blog.service;
+package com.example.blog.service.accountService;
 
 import com.example.blog.domain.Role;
 import com.example.blog.domain.User;
-import com.example.blog.repository.RefreshTokenRepository;
-import com.example.blog.repository.RoleRepository;
-import com.example.blog.repository.UserRepository;
+import com.example.blog.jwt.filter.JwtAuthenticationFilter;
+import com.example.blog.jwt.token.JwtTokenizer;
+import com.example.blog.repository.accountRepository.RoleRepository;
+import com.example.blog.repository.accountRepository.UserRepository;
+import io.jsonwebtoken.Claims;
+import jakarta.servlet.http.Cookie;
+import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -15,10 +20,13 @@ import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
+@Slf4j
 public class UserService {
     private final UserRepository userRepository;
     private final RoleRepository roleRepository;
     private final PasswordEncoder passwordEncoder;
+    private final JwtAuthenticationFilter jwtAuthenticationFilter;
+    private final JwtTokenizer jwtTokenizer;
 
     // 비밀번호 암호화
     public String encodePassword(String password) {
@@ -34,6 +42,20 @@ public class UserService {
     @Transactional(readOnly = true)
     public Optional<User> findUser(Long id){
         return userRepository.findById(id);
+    }
+
+    // 토큰으로 사용자 찾기
+    @Transactional(readOnly = true)
+    public User findByAccessToken(HttpServletRequest request){
+        // accessTokne 값 추출
+        String accessToken  = jwtAuthenticationFilter.getToken(request);
+        // access Token으로 사용자 정보 claim 객체 추출
+        Claims claims = jwtTokenizer.parseAccessToken(accessToken);
+        // claim 객체의 id 추출 (user pk)
+        Long userId = claims.get("userId", Long.class);
+        // id(pk)에 해당되는 사용자 추출
+        User user = findUser(userId).get();
+        return user;
     }
 
     // 회원 가입 완료 시 유저 추가

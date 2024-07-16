@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div th:if="${post != null}">
+    <h1 th:text="${post.title}">제목</h1>
+    <p th:text="${post.name}">작성자</p>
+    <p th:text="${#temporals.format(post.created,'yyyy-MM-dd HH:mm')}">글 등록</p>
+    <p th:text="${post.contents}">내용</p>
+
+</div>
+<div sec:authorize="isAuthenticated()">
+    <button><a th:href="@{/write(id=${post.id})}">수정</a></button>
+    <button onclick="removeCheck()"><a href = "/">삭제</a></button>
+</div>
+
+<script>
+    function removeCheck() {
+        if (confirm("정말 삭제하시겠습니까??") == true){    //확인
+            document.removefrm.submit();
+        }else{   //취소
+            return false;
+        }
+    }
+</script>
+</body>
+</html>

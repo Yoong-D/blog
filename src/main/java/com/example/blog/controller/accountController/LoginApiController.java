@@ -1,13 +1,13 @@
-package com.example.blog.controller;
+package com.example.blog.controller.accountController;
 
 import com.example.blog.domain.RefreshToken;
 import com.example.blog.domain.User;
 import com.example.blog.domain.Role;
-import com.example.blog.dto.UserLoginDto;
-import com.example.blog.dto.UserLoginResponseDto;
+import com.example.blog.dto.AccountDto.UserLoginDto;
+import com.example.blog.dto.AccountDto.UserLoginResponseDto;
 import com.example.blog.jwt.token.JwtTokenizer;
-import com.example.blog.service.RefreshTokenService;
-import com.example.blog.service.UserService;
+import com.example.blog.service.accountService.RefreshTokenService;
+import com.example.blog.service.accountService.UserService;
 import io.jsonwebtoken.Claims;
 import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;

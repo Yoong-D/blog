@@ -5,25 +5,16 @@
     <meta name="viewport"
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="/css/base.css";
     <title>Blog</title>
 </head>
 <body>
 <div sec:authorize="!isAuthenticated()">
-    <h1>로그인 전 메인 페이지 </h1>
+    <header><img src ="/img/logo.png" alt="메인 로고 이미지" width="100" height="100"> </header>
     <div>
-        <button>로고</button>
         <button>검색</button>
         <!--    로그인 버튼 클릭시 http://도메인/loginform으로 이동 -->
         <button><a href="/loginform">로그인</a></button>
-
-        <ul>
-            <li>
-                <button>게시글</button>
-            </li>
-            <li>
-                <button>게시글</button>
-            </li>
-        </ul>
     </div>
 </div>
 
@@ -31,7 +22,35 @@
     <h1>로그인 후 메인 페이지</h1>
     <h1> <span sec:authentication="name"></span>님 로그인 완료(수정 예정)</h1>
     <button><a href="/logout"> 로그아웃</a></button>
-    <button><a href="/"> 메인페이지 </a></button>
+    <button> <a th:href="@{'/@' + ${#authentication.principal.username}}"
+       th:text="|${#authentication.principal.username}님의 마이페이지|"/></button>
+</div>
+<div>
+    <!-- 리스트에 있는 포스트 하나씩 꺼내오기 -->
+    <section>
+        <table th:if="${!posts.empty}">
+            <thead>
+            <tr>
+                <th>글 제목</th>
+                <th>글 내용</th>
+                <th>작성자</th>
+                <th>최초 등록일</th>
+                <th>최근 수정일</th>
+                <!-- 여기에 필요한 다른 컬럼들 추가 -->
+            </tr>
+            </thead>
+            <tbody>
+            <!-- posts 리스트를 순회하며 각각의 Post 객체를 출력 -->
+            <tr th:each="post : ${posts}">
+                <td> <a th:href="@{'/@' + ${post.username} + '/' + ${#strings.replace(post.title, ' ', '-')}}" th:text="${post.title}"></a>  </td>
+                <td th:text="${post.contents}">내용</td>
+                <td th:text="${post.name}">작성자</td>
+                <td th:text="${#temporals.format(post.created,'yyyy-MM-dd HH:mm')}">글 등록 날짜</td>
+                <td th:text="${#temporals.format(post.modify,'yyyy-MM-dd HH:mm')}">최종 수정 일자</td>
+            </tr>
+            </tbody>
+        </table>
+    </section>
 </div>
 
 </body>

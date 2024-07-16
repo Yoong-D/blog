@@ -1,8 +1,8 @@
-package com.example.blog.service;
+package com.example.blog.service.accountService;
 
 
 import com.example.blog.domain.RefreshToken;
-import com.example.blog.repository.RefreshTokenRepository;
+import com.example.blog.repository.accountRepository.RefreshTokenRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;

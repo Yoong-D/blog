@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>게시글 수정</title>
+</head>
+<body>
+<!--// th:href="@{/greet(name=${name})}-->
+<form action= "/write" method="post" id="postModifyForm" th:object="${post}">
+    <input type="text" name="post_title" id="post_title"><br>
+    <input type="text" name="post_tag" id="post_tag" ><br>
+    <input type="text" name="post_series" id="post_series" >
+    <div id="post_content">
+    </div>
+    <input type="submit" id = post_submit>
+</form>
+</body>
+</html>

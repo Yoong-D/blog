@@ -39,8 +39,8 @@ public class SecurityConfig {
                 .authorizeHttpRequests(authorize -> authorize
                         // 해당 URL 요청은 모든 접근 허용
                         // Spring Boot 2.x 들어오면서 보안향상을 위해 static resouce 까지 보호 -> Spring security에서 무시할  url설정
-                        .requestMatchers("/","/css/**","/scripts/**","/plugin/**","/fonts/**" ).permitAll()
-                        .requestMatchers("/loginform", "/api/login", "/@{username}", "/mypage", "api/refreshToken","/logout").permitAll()
+                        .requestMatchers("/","/css/**","/scripts/**","/plugin/**","/fonts/**", "/img/**" ).permitAll()
+                        .requestMatchers("/loginform", "/api/login", "/@{username}", "/mypage", "api/refreshToken","/logout","/@{username}/{title}").permitAll()
                         .requestMatchers("/signup", "/api/userreg", "/welcome", "/api/users/check-username", "/api/users/check-email").permitAll()
                         .anyRequest().authenticated()
                 )

@@ -1,14 +1,13 @@
 
-package com.example.blog.controller;
+package com.example.blog.controller.accountController;
 
 import com.example.blog.domain.User;
-import com.example.blog.service.UserService;
+import com.example.blog.service.accountService.UserService;
 import lombok.RequiredArgsConstructor;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 

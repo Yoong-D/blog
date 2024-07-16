@@ -1,17 +1,15 @@
-package com.example.blog.controller;
+package com.example.blog.controller.accountController;
 
 import com.example.blog.domain.DuplicateChecker;
 import com.example.blog.domain.User;
-import com.example.blog.dto.JoinUserDto;
-import com.example.blog.dto.UserLoginDto;
-import com.example.blog.service.UserService;
+import com.example.blog.dto.AccountDto.JoinUserDto;
+import com.example.blog.service.accountService.UserService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
@@ -25,7 +23,7 @@ public class JoinApiController {
     @PostMapping("/api/userreg")
     public ResponseEntity<JoinUserDto> userReg(@RequestBody @Valid JoinUserDto joinUserDto,
                                                BindingResult bindingResult) {
-        log.info("api실행됨!");
+        log.info("회원가입 api실행");
         // 1. 폼 데이터(vaild)가 유효한지 체크
         if (bindingResult.hasErrors()) {
             log.info("error : 폼 데이터에 오류 발생");

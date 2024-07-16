@@ -37,7 +37,7 @@ submit.addEventListener('click', function(event) {
             // Step 2: 서버에서 반환된 데이터 처리
             console.log('Response from server:', data);
             // 예시로 /welcome 페이지로 이동하는 코드
-            window.location.href = "/"// 응답이 정상적일 경우 /welcome 페이지로 이동
+            window.location.href = "/"// 응답이 정상적일 경우 메인 홈 페이지로 이동
         })
         .catch(error => {
             // Step 3: 에러 처리

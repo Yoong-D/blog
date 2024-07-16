@@ -1,17 +1,22 @@
-package com.example.blog.controller;
+package com.example.blog.controller.accountController;
 
-import com.example.blog.service.RefreshTokenService;
-import com.example.blog.service.UserService;
+import com.example.blog.domain.Post;
+import com.example.blog.service.PostService;
+import com.example.blog.service.accountService.RefreshTokenService;
+import com.example.blog.service.accountService.UserService;
 import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
 
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.domain.Page;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 
 @Controller
@@ -22,10 +27,13 @@ public class LoginController {
     private final UserService userService;
     private final PasswordEncoder passwordEncoder;
     private final RefreshTokenService refreshTokenService;
+    private final PostService postService;
 
     // 메인 화면(로그인X)
     @GetMapping("/")
-    public String LoginMain() {
+    public String LoginMain(Model model) {
+        List<Post> posts = postService.allPost();
+        model.addAttribute("posts", posts);
         return "home";
     }
 
@@ -37,17 +45,10 @@ public class LoginController {
 
     // 사용자 상세 페이지 -> http://도메인/@{useranme}
     @GetMapping("/@{username}")
-    public String blog(@PathVariable("username") String useranme, Model model) {
-        log.info("실행은 되나요?");
-        model.addAttribute("username");
+    public String blog(@PathVariable("username") String useranme) {
         return "mypage";
     }
 
-//    @GetMapping("/@{username}")
-//    public String blog(@PathVariable("username") String useranme, Model model){
-//        model.addAttribute("username");
-//        return "blog";
-//    }
     // 로그아웃
     @GetMapping("/logout")
     public String logout(HttpServletResponse response, HttpServletRequest request) {
