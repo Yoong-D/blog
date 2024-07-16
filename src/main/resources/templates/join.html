@@ -1,21 +1,35 @@
 <!doctype html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org/">
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>회원가입</title>
+    <link rel="stylesheet" href="/css/join.css">
     <script src="/scripts/joinValidation.js" defer></script>
 </head>
 <body>
+<!--로그인 전에 보여질 header-->
+<div sec:authorize="!isAuthenticated()">
+    <div th:replace="header_before_login :: header_before_login"></div>
+</div>
+
+<!--로그인 후에 보여질 header-->
+<div sec:authorize="isAuthenticated()">
+    <div th:replace="header_after_login :: header_after_login"></div>
+</div>
+
+
 <!--아이디, 암호, 암호 확인, 이름, 이메일 회원 가입 -->
-<form action="/api/userreg" method="post" id="joinForm">
+<form action="/api/userreg" method="post" id="joinPage">
     <fieldset>
         <legend>회원 가입</legend>
         <label for="username">아이디</label>
-        <input placeholder="아이디를 입력해주세요." type="text" id="username" name="username" required>
-        <button id="id_duplication">중복 확인</button>
+        <div class="username">
+            <input placeholder="아이디를 입력해주세요." type="text" id="username" name="username" required>
+            <button id="id_duplication">중복 확인</button>
+        </div>
         <br>
         <label for="password">암호</label>
         <input placeholder="비밀번호를 입력해주세요." type="password" id="password" name="password" required><br>
@@ -24,11 +38,20 @@
         <label for="name">이름</label>
         <input placeholder="사용할 이름을 입력해주세요." type="text" id="name" name="name" required><br>
         <label for="email">이메일</label>
-        <input placeholder="이메일을 입력해주세요." type="email" id="email" name="email" required>
-        <button id="email_duplication">중복 확인</button>
+        <div class="email">
+            <input placeholder="이메일을 입력해주세요." type="email" id="email" name="email" required>
+            <button id="email_duplication">중복 확인</button>
+        </div>
         <br><br><br>
         <input type="submit" value="회원가입" id="joinButton">
     </fieldset>
 </form>
+<script>
+
+    document.getElementById("logoImg").onclick = function () {
+        window.location.href = "/"; // /home으로 페이지 이동
+    };
+
+</script>
 </body>
 </html>

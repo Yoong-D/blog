@@ -1,0 +1,78 @@
+@import "header.css";
+@import "reset.css";
+
+#loginPage{
+    width: 20%; /* 100% - 15% (left) - 15% (right) = 70% */
+    margin: 0 auto;
+    padding: 30px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    background-color: #F5F3F7;
+    position: absolute;
+    top: 50%; /* 상단 위치를 화면의 중앙으로 이동 */
+    left: 50%; /* 좌측 위치를 화면의 중앙으로 이동 */
+    transform: translate(-50%, -50%); /* 요소를 중앙 정렬 */
+}
+
+/* 필드셋 스타일 */
+fieldset {
+    border: none;
+    padding: 0;
+}
+
+legend {
+    font-size: 2em;
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+/* 레이블 및 입력 필드 스타일 */
+label {
+    display: block;
+    margin-bottom: 8px;
+}
+
+input[type="text"],
+input[type="password"] {
+    width: calc(100% - 20px);
+    padding: 8px;
+    margin-bottom: 10px;
+    border: 1px solid black; /* 입력 필드 테두리 */
+    border-radius: 4px;
+}
+
+input[type="submit"] {
+    background-color: black; /* 로그인 버튼 배경색 */
+    color: white; /* 로그인 버튼 글자색 */
+    border: none;
+    padding: 5px 10px;
+    cursor: pointer;
+    border-radius: 4px;
+    float: right; /* 오른쪽으로 옮기기 */
+}
+
+input[type="submit"]:hover {
+    background-color: darkgray;/* 로그인 버튼 호버 배경색 */
+}
+
+span{
+    float: right;
+}
+/* 버튼 스타일 */
+#joinBtn {
+    background-color: black;/* 기타 버튼 배경색 */
+    border: none;
+    padding: 5px 10px;
+    cursor: pointer;
+    border-radius: 4px;
+    margin-top: 10px;
+}
+
+#joinBtn a {
+    text-decoration: none;
+    color: white;
+}
+
+#joinBtn:hover {
+    background-color: darkgray; /* 기타 버튼 호버 배경색 */
+}

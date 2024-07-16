@@ -1,38 +1,48 @@
 <!doctype html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org/">
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport"
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>로그인 페이지</title>
+    <link rel="stylesheet" href="/css/login.css">
+
     <script src="/scripts/loginValidation.js" defer></script>
 </head>
 <body>
-<!--아이디 입력창, 암호 입력창, 로그인 버튼 -->
-<form action="/api/login" method="post" id="loginForm">
-    <fieldset>
-        <legend>로그인</legend>
-        <br>
-        <lable for="username">아이디</lable>
-        <input placeholder="아이디를 입력하세요." id="username" name="username" type="text" required><br>
-        <lable for="password">비밀번호</lable>
-        <input placeholder="비밀번호를 입력하세요." id="password" name="password" type="password"><br>
-        <input type="submit" value="로그인" id="loginButton">
-        <p hidden id="error_message" th:text="${error_message}">오류 메시지 출력</p>
-    </fieldset>
-</form>
-<br>
-<button><a href="/signup"> 회원 가입 </a></button>
+<!--로그인 전에 보여질 header-->
+<div sec:authorize="!isAuthenticated()">
+    <div th:replace="header_before_login :: header_before_login"></div>
+</div>
+
+<!--로그인 후에 보여질 header-->
+<div sec:authorize="isAuthenticated()">
+    <div th:replace="header_after_login :: header_after_login"></div>
+</div>
+
+
+<!-- 아이디 입력창, 암호 입력창, 로그인 버튼 -->
+<div id ="loginPage">
+    <form action="/api/login" method="post" class="loginForm">
+        <fieldset>
+            <legend>로그인</legend>
+            <br>
+            <label for="username">아이디</label>
+            <input placeholder="아이디를 입력하세요." id="username" name="username" type="text" required><br>
+            <label for="password">비밀번호</label>
+            <input placeholder="비밀번호를 입력하세요." id="password" name="password" type="password"><br>
+            <input type="submit" value="로그인" id="loginButton">
+        </fieldset>
+    </form>
+    <br>
+    <span>계정이 없으신가요? <button id="joinBtn"><a href="/signup">회원 가입</a></button></span>
+</div>
 <script>
-    // 로그인 시, 해당 사용자가 없거나, 비밀번호가 틀릴시 에러메시지 창 띄우기
-    // HTML 요소 가져오기
-    let element = document.getElementById("error_message");
-    // 요소의 텍스트 콘텐츠를 변수에 저장
-    let message = element.textContent;
-    if (message.length > 1) {
-        alert(message);
-    }
+
+    document.getElementById("logoImg").onclick = function () {
+        window.location.href = "/"; // /home으로 페이지 이동
+    };
 
 </script>
 </body>

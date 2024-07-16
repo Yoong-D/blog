@@ -5,53 +5,57 @@
     <meta name="viewport"
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <link rel="stylesheet" href="/css/base.css";
+    <link rel="stylesheet" href="/css/home.css">  <script src="/scripts/logo.js" ></script>
     <title>Blog</title>
 </head>
+
 <body>
+<!--로그인 전에 보여질 header-->
 <div sec:authorize="!isAuthenticated()">
-    <header><img src ="/img/logo.png" alt="메인 로고 이미지" width="100" height="100"> </header>
-    <div>
-        <button>검색</button>
-        <!--    로그인 버튼 클릭시 http://도메인/loginform으로 이동 -->
-        <button><a href="/loginform">로그인</a></button>
-    </div>
+    <div th:replace="header_before_login :: header_before_login"></div>
 </div>
 
+<!--로그인 후에 보여질 header-->
 <div sec:authorize="isAuthenticated()">
-    <h1>로그인 후 메인 페이지</h1>
-    <h1> <span sec:authentication="name"></span>님 로그인 완료(수정 예정)</h1>
-    <button><a href="/logout"> 로그아웃</a></button>
-    <button> <a th:href="@{'/@' + ${#authentication.principal.username}}"
-       th:text="|${#authentication.principal.username}님의 마이페이지|"/></button>
-</div>
-<div>
-    <!-- 리스트에 있는 포스트 하나씩 꺼내오기 -->
-    <section>
-        <table th:if="${!posts.empty}">
-            <thead>
-            <tr>
-                <th>글 제목</th>
-                <th>글 내용</th>
-                <th>작성자</th>
-                <th>최초 등록일</th>
-                <th>최근 수정일</th>
-                <!-- 여기에 필요한 다른 컬럼들 추가 -->
-            </tr>
-            </thead>
-            <tbody>
-            <!-- posts 리스트를 순회하며 각각의 Post 객체를 출력 -->
-            <tr th:each="post : ${posts}">
-                <td> <a th:href="@{'/@' + ${post.username} + '/' + ${#strings.replace(post.title, ' ', '-')}}" th:text="${post.title}"></a>  </td>
-                <td th:text="${post.contents}">내용</td>
-                <td th:text="${post.name}">작성자</td>
-                <td th:text="${#temporals.format(post.created,'yyyy-MM-dd HH:mm')}">글 등록 날짜</td>
-                <td th:text="${#temporals.format(post.modify,'yyyy-MM-dd HH:mm')}">최종 수정 일자</td>
-            </tr>
-            </tbody>
-        </table>
-    </section>
+    <div th:replace="header_after_login :: header_after_login"></div>
 </div>
 
+<!--네비게이션 바-->
+<nav id="navbar">
+    <a href="/recent" id="recent">
+        <img src="/img/recent.png" alt="최근 로고">
+        <span>최신</span>
+    </a>
+
+    <a href="/popular" id="popular">
+        <img src="/img/popular.png" alt="인기 로고">
+        <span>인기</span>
+    </a>
+
+    <a href="/bookmark" id="bookmark">
+        <img src="/img/bookmark.png" alt="즐겨찾기 로고">
+        <span>즐겨찾기</span>
+    </a>
+</nav>
+
+<!-- 게시글 -->
+<section>
+    <div th:if="${!posts.empty}" class="post-container">
+        <!-- posts 리스트를 순회하며 각각의 Post 객체를 출력 -->
+        <div th:each="post : ${posts}" class="post-card">
+            <a th:href="@{'/@' + ${post.username} + '/' + ${#strings.replace(post.title, ' ', '-')}}">
+                <h1 th:text="${post.title}"></h1>
+                <p th:text="${post.contents}">내용</p>
+                <div class="post-meta1">
+                    <span id="created" th:text="|${#temporals.format(post.created,'yyyy년 MM월 dd일')} &nbsp; 0개의 댓글|">글 등록 날짜</span>
+                </div>
+                <div class="post-meta2">
+                    <span id="author" th:text="|by. ${post.name}|">작성자</span>
+                    <span id="like" th:text="'&#x2764; ' + ${post.likeCount}">좋아요</span>
+                </div>
+            </a>
+        </div>
+    </div>
+</section>
 </body>
 </html>

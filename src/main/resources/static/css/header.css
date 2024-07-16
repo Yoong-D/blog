@@ -1,0 +1,135 @@
+@import "reset.css";
+
+body {
+    background-color: #F5F3F7;
+}
+
+a {
+    text-decoration: none;
+}
+
+/* 헤더(로고, 검색, 로그인) */
+#login {
+    width: 70%; /* 100% - 15% (left) - 15% (right) = 70% */
+    margin-left: 15%;
+    margin-right: 15%;
+    margin-bottom: 2rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 5rem;
+    /*border-bottom: 1px solid #878787;*/
+}
+
+/* 로고 이미지 */
+#logoImg {
+    position: absolute;
+    cursor: pointer; /*커서를 포인터로 변경*/
+}
+
+/* 로고 글씨 */
+#siteName {
+    position: relative;
+    left: 90px;
+    font-weight: bold;
+    font-size: 2.5rem;
+    margin-right: 40px;
+    margin-bottom: 4px;
+    color: #61398F;
+}
+
+/* 로그인 버튼 */
+#loginBtn {
+    margin-right: 15px;
+    padding: 5px 10px; /* 버튼 크기 설정*/
+    background-color: #8B5FBF;
+    border: none;
+    border-radius: 30px;
+}
+
+/* 로그인 버튼에 마우스 올릴시 */
+#loginBtn:hover {
+    background-color: #9A73B5;
+}
+
+/* 로그인 버튼 안 a 태그 */
+#loginBtn a {
+    color: white;
+    font-weight: bold;
+    text-decoration: none;
+}
+
+/*검색 폼 */
+#searchForm {
+    margin-left: auto;
+    margin-right: 10px;
+    display: flex;
+    position: relative;
+    align-items: center;
+}
+
+.search-container {
+    display: flex;
+}
+
+/*검색 바*/
+#searchVal {
+    flex: 1; /*입력 필드가 가능한 한 많은 공간을 차지하도록 설정*/
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    width: 300px;
+}
+
+/*검색 버튼*/
+#searchBtn {
+    width: 40px;
+    height: 40px;
+    background-image: url('../img/search.png');
+    background-size: 60% 60%;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+}
+
+/* 드롭다운 메뉴 */
+.dropdown{
+    position : relative;
+    display : inline-block;
+}
+
+.dropbtn{
+    border-radius: 30px;
+    padding: 5px 10px;
+    border: none;
+    margin-right: 15px;
+    background-color: #8B5FBF;
+    color : white;
+    cursor : pointer;
+
+}
+.dropdown-content{
+    display : none;
+    position : absolute;
+    z-index : 1; /*다른 요소들보다 앞에 배치*/
+    background-color: #E9E4ED;
+    min-width : 150px;
+}
+
+.dropdown-content a{
+    display : block;
+    text-decoration : none;
+    color : rgb(37, 37, 37);
+    font-size: 12px;
+    padding : 12px 20px;
+}
+
+.dropdown-content a:hover{
+    background-color : #ececec
+}
+
+.dropdown:hover .dropdown-content {
+    display: block;
+}
