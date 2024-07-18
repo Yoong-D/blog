@@ -2,10 +2,10 @@
 ##### 프로젝트 진행 기간 : ~ 2024.07.19(10day) (단독)
 ##### IDE : Intellij Professional
 ##### Famework : Spring 6.1.6
-##### dependencies : Spring Boot DevTools, Lombok, Spring Web, Spring Data JDBC, Thymeleaf, Validation, Spring Security
+##### dependencies : Spring Boot(3.3.1) DevTools, Lombok, Spring Web, Spring Data JDBC, Thymeleaf, Validation, Spring Security6, Spring JPA
 ##### Language : Java 21, Html 5, CSS
 ##### Database : Mysql 8.4.0
-##### ETC : JWT, Token(Access, Refresh), RestApi, Docker
+##### ETC : JWT, Token(Access, Refresh), RestApi, Docker 
 
 
 ## 구현 모습 
