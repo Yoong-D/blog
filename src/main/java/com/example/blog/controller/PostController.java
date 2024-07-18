@@ -1,13 +1,12 @@
 package com.example.blog.controller;
 
+import com.example.blog.domain.Comment;
 import com.example.blog.domain.Post;
-import com.example.blog.dto.PostDto;
+import com.example.blog.service.CommentService;
 import com.example.blog.service.PostService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -19,6 +18,7 @@ import java.util.List;
 @Slf4j
 public class PostController {
     private final PostService postService;
+    private final CommentService commentService;
 
     // 게시글 작성 폼
     @GetMapping("/postform")
@@ -33,6 +33,10 @@ public class PostController {
         String PostTitle = title.replace("-", " ");
         Post post =  postService.findByUsernameAndTitle(username,PostTitle);
         model.addAttribute("post", post);
+
+        // 댓글
+        List<Comment> comments = commentService.CommentList(post);
+        model.addAttribute("comments",comments);
 
         return "postView";
     }

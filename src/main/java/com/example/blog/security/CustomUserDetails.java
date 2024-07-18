@@ -26,6 +26,9 @@ public class CustomUserDetails implements UserDetails {
         this.authorities = roles.stream().map(SimpleGrantedAuthority::new).collect(Collectors.toList());
     }
 
+    public String getName() {
+        return name;
+    }
 
     @Override
     // 사용자의 이름을 반환

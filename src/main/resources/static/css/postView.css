@@ -1,27 +1,22 @@
 @import url("header.css");
 @import url("reset.css");
 
+/* 포스트 보기 섹션 */
 #postView {
-    width: 60%; /* 너비를 60%로 설정 (원하는 값으로 조정 가능) */
-    height: 70%; /* 높이를 70%로 설정 (원하는 값으로 조정 가능) */
-    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    width: 60%;
+    margin: 2rem auto;
     padding: 30px;
+    box-sizing: border-box;
+    background-color: #FFFFFF;
     border-radius: 8px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    background-color: #F5F3F7;
-    position: absolute;
-    top: 50%; /* 상단 위치를 화면의 중앙으로 이동 */
-    left: 50%; /* 좌측 위치를 화면의 중앙으로 이동 */
-    transform: translate(-50%, -50%); /* 요소를 중앙 정렬 */
-    box-sizing: border-box; /* padding을 포함한 전체 크기 계산 */
-    display: flex; /* Flexbox 설정 */
-    flex-direction: column; /* 세로 방향으로 정렬 */
 }
 
 #postForm {
     border: none;
     margin-bottom: 1rem;
-    flex: 1; /* 남은 공간을 차지하도록 설정 */
     display: flex;
     flex-direction: column;
 }
@@ -30,64 +25,125 @@
     border: none;
     font-size: 30px;
     font-weight: bold;
-    margin-bottom: 3rem;
+    margin-bottom: 1.5rem;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    background-color: #F5F3F7;
+    box-sizing: border-box;
+    padding: 15px;
 }
 
 #authorAndCreated {
     display: flex;
     margin-bottom: 1.5rem;
+    font-size: 16px;
+    color: #666;
 }
 
 #author {
-    border: none;
     font-weight: bold;
-    font-size: 17px;
-    color: #666666;
     margin-right: 2rem;
 }
 
 #created {
-    border: none;
-    font-size: 17px;
-    color: #666666;
-    font-weight: 13;
+    font-weight: normal;
 }
 
 span#tags {
     display: inline-block;
-    width: max-content;     /*글자 크기에 맞게 사이즈 조절*/
+    width: max-content;
     border: none;
     border-radius: 30px;
     padding: 8px 15px;
     background: #8B5FBF;
+    color: white;
+    margin-bottom: 1.5rem;
 }
 
 #contents {
-    border: none;
-    margin: 5rem 3rem 2rem 3rem;
-    flex: 1; /* 남은 공간을 차지하도록 설정 */
-    overflow-y: auto; /* 내용이 많을 경우 스크롤 가능 */
+    margin: 0;
+    line-height: 1.6;
+    padding-bottom: 15rem;
 }
 
 #buttons {
     border: none;
-    position: absolute;
-    bottom: 20px; /* 부모 요소의 하단에서 20px 위로 */
-    right: 20px; /* 부모 요소의 오른쪽에서 20px 왼쪽으로 */
     display: flex;
-    gap: 10px; /* 버튼 간의 간격 */
+    justify-content: flex-end; /* 모든 버튼을 오른쪽으로 정렬 */
+    gap: 10px;
+    margin-top: 20px;
 }
 
 #buttons a {
     color: white;
-    text-decoration: none; /* 링크 밑줄 제거 */
+    text-decoration: none;
 }
 
-#modifyBtn, #deleteBtn {
+#modifyBtn,
+#deleteBtn {
     border: none;
     background-color: black;
-    padding: 5px 25px;
-    cursor: pointer; /* 커서를 포인터로 변경 */
-    color: white; /* 버튼 텍스트 색상 */
-    border-radius: 5px; /* 버튼 테두리 둥글게 */
+    padding: 10px 20px;
+    cursor: pointer;
+    color: white;
+    border-radius: 5px;
+}
+
+/* 댓글 컨테이너 */
+#comment_container {
+    width: 60%;
+    margin: 2rem auto;
+    padding: 30px;
+    box-sizing: border-box;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    background-color: white;
+}
+
+#commentForm {
+    width: calc(100% - 22px);
+    padding: 10px 10px 30px 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    margin-bottom: 10px;
+    display: flex; /* Flex 컨테이너로 설정 */
+    justify-content: space-between; /* 아이템을 양쪽 끝으로 정렬 */
+    align-items: center; /* 아이템을 세로 중앙 정렬 */
+
+
+}
+
+#commentBtn {
+    display: flow;
+    background-color: #8B5FBF;
+    border: none;
+    color: white;
+    padding: 10px 20px;
+    cursor: pointer;
+    border-radius: 5px;
+    margin-left: auto; /* 이 부분을 확인하여 오른쪽 정렬되도록 설정 */
+}
+
+
+#commentList {
+    margin-top: 20px;
+}
+
+#comments {
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    background-color: #F5F3F7;
+}
+
+#comments p {
+    margin: 0;
+    padding: 10px 0;
+    background-color: #F5F3F7;
+
+}
+
+#commentAuthor {
+    font-weight: bold;
+    color: #333;
 }

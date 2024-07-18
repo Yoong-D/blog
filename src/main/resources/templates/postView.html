@@ -4,52 +4,54 @@
     <meta charset="UTF-8">
     <title th:text="${post.title}"></title>
     <link rel="stylesheet" href="/css/postView.css">
+    <script src="/scripts/comment.js" defer></script>
 </head>
 <body>
-<!--로그인 전에 보여질 header-->
+
+<!-- 로그인 전에 보여질 header -->
 <div sec:authorize="!isAuthenticated()">
     <div th:replace="~{header_before_login :: header_before_login}"></div>
 </div>
 
-<!--로그인 후에 보여질 header-->
+<!-- 로그인 후에 보여질 header -->
 <div sec:authorize="isAuthenticated()">
     <div th:replace="~{header_after_login :: header_after_login}"></div>
-
 </div>
-<section id = "postView">
-    <div id ="postForm" th:if="${post != null}">
-        <h1 id ="title" th:text="${post.title}">제목</h1>
+
+<section id="postView">
+    <div id="postForm" th:if="${post != null}">
+        <h1 id="title" th:text="${post.title}">제목</h1>
         <div id="authorAndCreated">
-            <p id ="author" th:text="|by. ${post.name}|">작성자</p>
-            <p id ="created" th:text="${#temporals.format(post.created,'yyyy년 MM월 dd일')}">글 등록</p>
+            <p id="author" th:text="|by. ${post.username}|">작성자</p>
+            <p id="created" th:text="${#temporals.format(post.created, 'yyyy년 MM월 dd일')}">글 등록</p>
         </div>
         <span id="tags">태그</span>
-        <p id ="contents" th:text="${post.contents}">내용</p>
+        <p id="contents" th:text="${post.contents}">내용</p>
     </div>
-    <div id ="buttons" sec:authorize="isAuthenticated()">
+    <div id="buttons" sec:authorize="isAuthenticated()">
         <button id="modifyBtn"><a th:href="@{/write(id=${post.id})}">수정</a></button>
         <button id="deleteBtn" onclick="removeCheck()">삭제</button>
     </div>
 </section>
 
-<script>
-    document.getElementById("logoImg").onclick = function () {
-        window.location.href = "/"; // /home으로 페이지 이동
-    };
+<div id="comment_container">
+<!--    댓글 작성 -->
+    <form sec:authorize="isAuthenticated()" action="/api/comment" method="post">
+        <p id="commentId" hidden th:text="${#authentication.principal.username}">작성자 id</p>
+        <p id="writer" hidden  th:text="${#authentication.principal.name}">작성자</p>
+        <input id="commentForm" type="text">
+        <input id="commentBtn" type="submit" value="댓글 달기">
+    </form>
 
-    // 삭제 버튼 클릭스 삭제 여부를 물어보고 삭제하기
-    function removeCheck() {
-        let username = document.getElementById("author").innerText;
-        username = username.replace('by. ', '').trim();
-        let title = document.getElementById("title").innerText;
-        title = title.trim();
-        if (confirm("정말 삭제하시겠습니까??")) {
-            alert("삭제되었습니다.");
-            window.location.href = "/delete/" + encodeURIComponent(username) +"/"+ encodeURIComponent(title); // URL 인코딩
-        } else {
-            // 취소 버튼 클릭 시 아무 동작 없음
-        }
-    }
-</script>
+
+    <!-- 댓글 출력 -->
+    <div id="commentList" th:if="${!comments.empty}">
+        <div id="comments" th:each="comment : ${comments}">
+            <p id="commentAuthor" th:text="|by. ${comment.name} |">작성자</p>
+            <p id="comment" th:text="${comment.comments}">내용</p> <!-- Ensure the variable name matches the Comment entity -->
+        </div>
+    </div>
+</div>
+
 </body>
 </html>

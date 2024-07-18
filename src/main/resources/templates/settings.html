@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+<head>
+    <meta charset="UTF-8">
+    <title>사용자 설정</title>
+    <link rel="stylesheet" href="/css/header.css">
+</head>
+<body>
+<!--로그인 후에 보여질 header-->
+<div sec:authorize="isAuthenticated()">
+    <div th:replace="~{header_after_login :: header_after_login}"></div>
+
+</div>
+
+<h1>사용자 설정 페이지 </h1>
+<p>프로필 사진 이미지 업로드</p>
+<p>프로필 사진 이미지 제거</p>
+<p>사용자 명 -name</p>
+<p>사용자 명 수정 </p>
+<p>벨로그 제목</p>
+<p>쇼설 정보</p>
+<p>이메일 주소 </p>
+<p>이메일 주소 수정</p>
+<p>회원 탈퇴 </p>
+<script>
+
+    document.getElementById("logoImg").onclick = function () {
+        window.location.href = "/"; // /home으로 페이지 이동
+    };
+
+</script>
+</body>
+</html>

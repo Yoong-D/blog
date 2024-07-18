@@ -18,9 +18,7 @@ public interface PostRepository extends JpaRepository<Post,Long>, PagingAndSorti
     // 사용자(id)와, 제목으로 게시글 조회
     Post findByUsernameAndTitle(String username, String title);
 
-    List<Post> findAllByOrderByCreatedDesc();
-
-    // 페이징 처리를 위한 메서드
-    Page<Post> findAllByOrderByCreatedDesc(Pageable pageable);
+    // 내 글 페이징 처리
+    Page<Post> findByUsername(String username, Pageable pageable);
 
 }

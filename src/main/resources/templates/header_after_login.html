@@ -27,7 +27,7 @@
                 <a th:href="@{'/@' + ${#authentication.principal.username}}">마이페이지</a>
                 <a href="/postform">새 글 작성</a>
                 <a href="#">임시 글</a>
-                <a href="#">설정</a>
+                <a th:href="@{'/@' + ${#authentication.principal.username} +'/settings'}">설정</a>
             </div>
         </div>
         <button id="loginBtn"><a href="/logout"> 로그아웃</a></button>

@@ -34,30 +34,11 @@ public class LoginController {
     private final PostService postService;
     private final PostRepository postRepository;
 
-    // 메인 화면(로그인X) - 페이징 처리
-    @GetMapping("/")
-    public String LoginMain(@RequestParam(value = "page", defaultValue = "1") int page,
-                            @RequestParam(value = "size", defaultValue = "10") int size,
-                            Model model) {
-
-        // 페이지 번호는 0부터 시작하므로 1을 뺍니다.
-        Page<Post> posts = postService.pagingPost(page - 1, size);
-        model.addAttribute("posts", posts);
-        model.addAttribute("url","/");
-
-        return "home";
-    }
 
     // 로그인 폼 - 구현 완료
     @GetMapping("/loginform")
     public String loginform() {
         return "login";
-    }
-
-    // 사용자 상세 페이지 -> http://도메인/@{useranme}
-    @GetMapping("/@{username}")
-    public String blog(@PathVariable("username") String useranme) {
-        return "mypage";
     }
 
     // 로그아웃

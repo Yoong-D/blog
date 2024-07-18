@@ -52,7 +52,7 @@
                     <span id="created" th:text="|${#temporals.format(post.created,'yyyy년 MM월 dd일')} &nbsp; 0개의 댓글|">글 등록 날짜</span>
                 </div>
                 <div class="post-meta2">
-                    <span id="author" th:text="|by. ${post.name}|">작성자</span>
+                    <span id="author" th:text="|by. ${post.username}|">작성자</span>
                     <span id="like" th:text="'&#x2764; ' + ${post.likeCount}">좋아요</span>
                 </div>
             </a>

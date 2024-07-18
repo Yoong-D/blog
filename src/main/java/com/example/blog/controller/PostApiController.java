@@ -2,7 +2,9 @@ package com.example.blog.controller;
 
 import com.example.blog.domain.Post;
 import com.example.blog.domain.User;
+import com.example.blog.dto.CommentDto;
 import com.example.blog.dto.PostDto;
+import com.example.blog.service.CommentService;
 import com.example.blog.service.PostService;
 import com.example.blog.service.accountService.UserService;
 import jakarta.servlet.http.HttpServletRequest;
@@ -18,6 +20,7 @@ import org.springframework.web.bind.annotation.*;
 public class PostApiController {
     private final PostService postService;
     private final UserService userService;
+    private final CommentService commentService;
 
     // 게시글 업로드
     @PostMapping("/api/postform")
@@ -50,6 +53,18 @@ public class PostApiController {
     @PostMapping("/api/image")
     public void imageUpload(){
 
+    }
+
+    // 댓글
+    @PostMapping("/api/comment")
+    public ResponseEntity comment(@RequestBody CommentDto commentDto){
+        log.info("/api/comment Post 요청");
+        Post post = postService.findByUsernameAndTitle(commentDto.getUsername(), commentDto.getPostTitle());
+        if(commentService.addComment(post, commentDto) != null){
+            return new ResponseEntity(commentDto,HttpStatus.OK);
+        }else{
+            return new ResponseEntity("댓글 등록에 실패했습니다.", HttpStatus.BAD_REQUEST);
+        }
     }
 
 }

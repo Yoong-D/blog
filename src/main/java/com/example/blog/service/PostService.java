@@ -1,8 +1,11 @@
 package com.example.blog.service;
 
+import com.example.blog.domain.Comment;
 import com.example.blog.domain.Post;
 import com.example.blog.domain.User;
+import com.example.blog.dto.CommentDto;
 import com.example.blog.dto.PostDto;
+import com.example.blog.repository.CommentRepository;
 import com.example.blog.repository.PostRepository;
 import com.example.blog.service.accountService.UserService;
 import jakarta.persistence.EntityNotFoundException;
@@ -16,6 +19,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -24,6 +28,7 @@ import java.util.Optional;
 public class PostService {
     private final PostRepository postRepository;
     private final UserService userService;
+    private final CommentRepository commentRepository;
 
     // 해당 사용자가 가진 게시글 조회
     @Transactional
@@ -60,6 +65,13 @@ public class PostService {
         Page<Post> posts = postRepository.findAll(sortedByDESCDate);
         return posts;
     }
+
+    // 나의 글 페이징 처리(최신)
+    @Transactional
+    public Page<Post> recentPagingMyPost(int page, int size, String username) {
+        Pageable pageable = PageRequest.of(page, size, Sort.by(Sort.Direction.DESC, "created"));
+        return postRepository.findByUsername(username, pageable);
+    }
     // 게시글 저장
     @Transactional
     public void savePost(User user, PostDto postDto) {
@@ -89,12 +101,14 @@ public class PostService {
         Optional<Post> optionalPost = postRepository.findById(id);
         if (optionalPost.isPresent()) {
             Post OriginalPost = optionalPost.get();
+
             OriginalPost.setTitle(post.getTitle());
             OriginalPost.setTag(post.getTag());
             String contents = post.getContents().replaceAll("\\<.*?\\>", "");
             OriginalPost.setContents(contents);
             OriginalPost.setSeries(post.getSeries());
             OriginalPost.setCreated(OriginalPost.getCreated());
+            OriginalPost.setModify(LocalDateTime.now());
             postRepository.save(OriginalPost);
         } else {
             throw new EntityNotFoundException("Post not found with id: " + id);
@@ -106,5 +120,6 @@ public class PostService {
     public void deleteById(Long id){
         postRepository.deleteById(id);
     }
+
 
 }
