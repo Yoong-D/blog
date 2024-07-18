@@ -10,7 +10,7 @@
 
 ## 구현 모습 
 ##### 메인화면(로그인 전)
-![image](https://github.com/user-attachments/assets/73bf6870-56bd-4468-9a70-d2614371e14d)
+![image](https://github.com/user-attachments/assets/8fb62ca0-3b2f-4b03-a2ea-08eda29623f9)
 
 ##### 메인화면(로그인 후)
 ![image](https://github.com/user-attachments/assets/5b8bab86-565f-4aa7-93ed-66f6e9d5cff9)
