@@ -1,6 +1,7 @@
 package com.example.blog.controller.accountController;
 
 import com.example.blog.domain.Post;
+import com.example.blog.repository.PostRepository;
 import com.example.blog.service.PostService;
 import com.example.blog.service.accountService.RefreshTokenService;
 import com.example.blog.service.accountService.UserService;
@@ -11,6 +12,9 @@ import lombok.RequiredArgsConstructor;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -28,12 +32,19 @@ public class LoginController {
     private final PasswordEncoder passwordEncoder;
     private final RefreshTokenService refreshTokenService;
     private final PostService postService;
+    private final PostRepository postRepository;
 
-    // 메인 화면(로그인X)
+    // 메인 화면(로그인X) - 페이징 처리
     @GetMapping("/")
-    public String LoginMain(Model model) {
-        List<Post> posts = postService.allPost();
+    public String LoginMain(@RequestParam(value = "page", defaultValue = "1") int page,
+                            @RequestParam(value = "size", defaultValue = "10") int size,
+                            Model model) {
+
+        // 페이지 번호는 0부터 시작하므로 1을 뺍니다.
+        Page<Post> posts = postService.pagingPost(page - 1, size);
         model.addAttribute("posts", posts);
+        model.addAttribute("url","/");
+
         return "home";
     }
 

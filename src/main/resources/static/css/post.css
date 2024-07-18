@@ -1,0 +1,79 @@
+@import url("reset.css");
+#postFormContainer{
+    position: relative;
+    width: 100%;
+    height: 100vh;
+}
+/* 게시글 수정 폼*/
+#postForm{
+    position: absolute;
+    top: 50%;
+    left: 60%;
+    transform: translate(-50%, -50%);
+    width: 70%;
+}
+
+
+/* 게시글 제목 */
+#post_title{
+    font-size: 50px;
+    font-weight: bold;
+    border: none;
+    width: 70%;
+    background-color: #F5F3F7;
+}
+hr{
+    width: 10%;
+    /*왼쪽 정렬*/
+    margin-left: 0;
+    height: 5px; /* 굵기 조절 */
+    background-color: #333333;
+    border: none;
+    margin-bottom: 10px;
+
+}
+/* 게시글 태그 */
+#post_tag{
+    font-size:20px;
+    border: none;
+    margin-bottom: 20px;
+    width: 70%;
+    background-color: #F5F3F7;
+}
+
+/* 게시글 시리즈 */
+#post_series{
+    border: none;
+    font-size:20px;
+    margin-bottom: 20px;
+    width: 70%;
+    background-color: #F5F3F7;
+}
+
+/* 게시글 내용 - 에디터 */
+.ck.ck-editor {
+    max-width: 70%;
+    margin-left: 0;
+    margin-bottom: 1rem;
+}
+.ck-editor__editable {
+    min-height: 500px;
+}
+.ck-content { font-size: 17px; }
+
+/* 게시글 수정 버튼 컨테이너 */
+#post_submit_container {
+    display: flex;
+    justify-content: flex-end; /* 오른쪽 정렬 */
+    width: 70%;
+    margin-top: 20px;
+}
+
+/* 게시글 수정 버튼 */
+#post_submit {
+    border: none;
+    background-color: black;
+    color: white;
+    padding: 10px 20px;
+    cursor: pointer;
+}

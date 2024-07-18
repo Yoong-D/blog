@@ -5,12 +5,17 @@ import com.example.blog.domain.User;
 import com.example.blog.dto.PostDto;
 import com.example.blog.repository.PostRepository;
 import com.example.blog.service.accountService.UserService;
+import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
-import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -21,20 +26,42 @@ public class PostService {
     private final UserService userService;
 
     // 해당 사용자가 가진 게시글 조회
+    @Transactional
     public Post findByUsername(String username) {
         return postRepository.findByUsername(username);
     }
 
     // 포스트 id로 게시글 조회
+    @Transactional
     public Optional<Post> findById(Long id){
         return postRepository.findById(id);
     }
 
     // 사용자(id)와, 제목으로 게시글 조회
+    @Transactional
     public Post findByUsernameAndTitle(String username, String title){
         return postRepository.findByUsernameAndTitle(username,title);
     }
+
+    // 페이징 처리(과거)
+    @Transactional
+    public Page<Post>  pagingPost(int page, int size){
+        Pageable sortedByASCDate = PageRequest.of(page,size
+                , Sort.by(Sort.Direction.ASC,"created"));
+        Page<Post> posts = postRepository.findAll(sortedByASCDate);
+        return posts;
+    }
+
+    // 페이징 처리(최신)
+    @Transactional
+    public Page<Post>  recentPagingPost(int page, int size){
+        Pageable sortedByDESCDate = PageRequest.of(page,size
+                , Sort.by(Sort.Direction.DESC,"created"));
+        Page<Post> posts = postRepository.findAll(sortedByDESCDate);
+        return posts;
+    }
     // 게시글 저장
+    @Transactional
     public void savePost(User user, PostDto postDto) {
         log.info("post 저장");
         Post post = new Post();
@@ -55,9 +82,29 @@ public class PostService {
         // 게시글 삭제
     }
 
-    // 전체 게시글 반환
-    public List<Post> allPost(){
-        return postRepository.findAll();
+    // 게시글 수정
+    @Transactional
+    public void updatePost(Long id, Post post){
+        log.info("post 수정 저장");
+        Optional<Post> optionalPost = postRepository.findById(id);
+        if (optionalPost.isPresent()) {
+            Post OriginalPost = optionalPost.get();
+            OriginalPost.setTitle(post.getTitle());
+            OriginalPost.setTag(post.getTag());
+            String contents = post.getContents().replaceAll("\\<.*?\\>", "");
+            OriginalPost.setContents(contents);
+            OriginalPost.setSeries(post.getSeries());
+            OriginalPost.setCreated(OriginalPost.getCreated());
+            postRepository.save(OriginalPost);
+        } else {
+            throw new EntityNotFoundException("Post not found with id: " + id);
+        }
+    }
+
+    // 게시글 삭제
+    @Transactional
+    public void deleteById(Long id){
+        postRepository.deleteById(id);
     }
 
 }

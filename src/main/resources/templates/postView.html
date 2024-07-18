@@ -2,27 +2,52 @@
 <html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title th:text="${post.title}"></title>
+    <link rel="stylesheet" href="/css/postView.css">
 </head>
 <body>
-<div th:if="${post != null}">
-    <h1 th:text="${post.title}">제목</h1>
-    <p th:text="${post.name}">작성자</p>
-    <p th:text="${#temporals.format(post.created,'yyyy-MM-dd HH:mm')}">글 등록</p>
-    <p th:text="${post.contents}">내용</p>
+<!--로그인 전에 보여질 header-->
+<div sec:authorize="!isAuthenticated()">
+    <div th:replace="~{header_before_login :: header_before_login}"></div>
+</div>
+
+<!--로그인 후에 보여질 header-->
+<div sec:authorize="isAuthenticated()">
+    <div th:replace="~{header_after_login :: header_after_login}"></div>
 
 </div>
-<div sec:authorize="isAuthenticated()">
-    <button><a th:href="@{/write(id=${post.id})}">수정</a></button>
-    <button onclick="removeCheck()"><a href = "/">삭제</a></button>
-</div>
+<section id = "postView">
+    <div id ="postForm" th:if="${post != null}">
+        <h1 id ="title" th:text="${post.title}">제목</h1>
+        <div id="authorAndCreated">
+            <p id ="author" th:text="|by. ${post.name}|">작성자</p>
+            <p id ="created" th:text="${#temporals.format(post.created,'yyyy년 MM월 dd일')}">글 등록</p>
+        </div>
+        <span id="tags">태그</span>
+        <p id ="contents" th:text="${post.contents}">내용</p>
+    </div>
+    <div id ="buttons" sec:authorize="isAuthenticated()">
+        <button id="modifyBtn"><a th:href="@{/write(id=${post.id})}">수정</a></button>
+        <button id="deleteBtn" onclick="removeCheck()">삭제</button>
+    </div>
+</section>
 
 <script>
+    document.getElementById("logoImg").onclick = function () {
+        window.location.href = "/"; // /home으로 페이지 이동
+    };
+
+    // 삭제 버튼 클릭스 삭제 여부를 물어보고 삭제하기
     function removeCheck() {
-        if (confirm("정말 삭제하시겠습니까??") == true){    //확인
-            document.removefrm.submit();
-        }else{   //취소
-            return false;
+        let username = document.getElementById("author").innerText;
+        username = username.replace('by. ', '').trim();
+        let title = document.getElementById("title").innerText;
+        title = title.trim();
+        if (confirm("정말 삭제하시겠습니까??")) {
+            alert("삭제되었습니다.");
+            window.location.href = "/delete/" + encodeURIComponent(username) +"/"+ encodeURIComponent(title); // URL 인코딩
+        } else {
+            // 취소 버튼 클릭 시 아무 동작 없음
         }
     }
 </script>

@@ -13,12 +13,13 @@
 <body>
 <!--로그인 전에 보여질 header-->
 <div sec:authorize="!isAuthenticated()">
-    <div th:replace="header_before_login :: header_before_login"></div>
+    <div th:replace="~{header_before_login :: header_before_login}"></div>
 </div>
 
 <!--로그인 후에 보여질 header-->
 <div sec:authorize="isAuthenticated()">
-    <div th:replace="header_after_login :: header_after_login"></div>
+    <div th:replace="~{header_after_login :: header_after_login}"></div>
+
 </div>
 
 

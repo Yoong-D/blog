@@ -12,14 +12,14 @@
 <body>
 <!--로그인 전에 보여질 header-->
 <div sec:authorize="!isAuthenticated()">
-    <div th:replace="header_before_login :: header_before_login"></div>
+    <div th:replace="~{header_before_login :: header_before_login}"></div>
 </div>
 
 <!--로그인 후에 보여질 header-->
 <div sec:authorize="isAuthenticated()">
-    <div th:replace="header_after_login :: header_after_login"></div>
-</div>
+    <div th:replace="~{header_after_login :: header_after_login}"></div>
 
+</div>
 
 <!--아이디, 암호, 암호 확인, 이름, 이메일 회원 가입 -->
 <form action="/api/userreg" method="post" id="joinPage">

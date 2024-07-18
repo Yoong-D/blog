@@ -2,17 +2,49 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>게시글 수정</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <!-- ck에디터 소스 -->
+    <script src="https://cdn.ckeditor.com/ckeditor5/31.1.0/classic/ckeditor.js"></script>
+    <script src="/scripts/ko.js" ></script>
+    <link rel="stylesheet" href="/css/post.css">
+    <title>글 수정</title>
 </head>
 <body>
-<!--// th:href="@{/greet(name=${name})}-->
-<form action= "/write" method="post" id="postModifyForm" th:object="${post}">
-    <input type="text" name="post_title" id="post_title"><br>
-    <input type="text" name="post_tag" id="post_tag" ><br>
-    <input type="text" name="post_series" id="post_series" >
+<!--th:href="@{/modify(id=${post.id})}-->
+<form th:action="@{/modify(id=${post.id})}" method="post" id="postForm" th:object="${post}">
+    <input type="text" name="post_title" id="post_title" th:field="*{title}" required><br>
+    <hr>
+    <input type="text" name="post_tag" id="post_tag" placeholder="태그"><br>
+    <input type="text" name="post_series" id="post_series" placeholder="시리즈">
+    <br>
+    <input  hidden type="text" name="contents" id = "contents" th:field="*{contents}">
     <div id="post_content">
+        <p id="content"  hidden th:field="*{contents}">
     </div>
-    <input type="submit" id = post_submit>
+    <div id="post_submit_container">
+        <input type="submit" id = post_submit value="수정하기">
+    </div>
 </form>
+<script>
+    let contents = document.getElementById('contents').value;
+
+    ClassicEditor
+        .create(document.querySelector('#post_content'), {
+            language:'ko'
+        }).then(editor => {
+        window.editor = editor;
+        if(contents.length>0){
+            window.editor.setData(contents);
+        }
+    }).catch( error => {
+        console.error( error );
+    });
+
+    document.getElementById('post_submit').addEventListener('click',function (event){
+        const editorData = window.editor.getData(); // 에디터에서 데이터 가져오기
+        document.getElementById('contents').value = editorData; // contents 필드에 설정
+    })
+</script>
 </body>
 </html>
