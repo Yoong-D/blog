@@ -65,10 +65,17 @@ public class PostService {
         Page<Post> posts = postRepository.findAll(sortedByDESCDate);
         return posts;
     }
-
-    // 나의 글 페이징 처리(최신)
+    // 나의 글 페이징 처리(과거)
     @Transactional
     public Page<Post> recentPagingMyPost(int page, int size, String username) {
+        Pageable pageable = PageRequest.of(page, size, Sort.by(Sort.Direction.ASC, "created"));
+        return postRepository.findByUsername(username, pageable);
+    }
+
+
+    // 나의 글 페이징 처리(최신)pagingMyPost
+    @Transactional
+    public Page<Post> pagingMyPost(int page, int size, String username) {
         Pageable pageable = PageRequest.of(page, size, Sort.by(Sort.Direction.DESC, "created"));
         return postRepository.findByUsername(username, pageable);
     }

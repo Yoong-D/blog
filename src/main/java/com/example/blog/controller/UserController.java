@@ -35,7 +35,7 @@ public class UserController {
         Page<Post> posts = postService.pagingPost(page - 1, size);
         model.addAttribute("posts", posts);
         model.addAttribute("url","/");
-
+        model.addAttribute("recentUrl", "/recent");
         return "home";
     }
 
@@ -49,6 +49,20 @@ public class UserController {
 
         model.addAttribute("posts", posts);
         model.addAttribute("url", "/@" + username); // URL 수정
+        model.addAttribute("recentUrl", "/@" + username + "/recent");
+        return "home";
+    }
+
+    // 사용자 최근 페이지 -> http://도메인/@{useranme}
+    @GetMapping("/@{username}/recent")
+    public String myRecentPost(@RequestParam(value = "page", defaultValue = "1") int page,
+                       @RequestParam(value = "size", defaultValue = "10") int size,
+                       @PathVariable("username") String username, Model model) {
+        // 페이지 번호는 0부터 시작하므로 1을 뺍니다.
+        Page<Post> posts = postService.pagingMyPost(page - 1, size,username);
+
+        model.addAttribute("posts", posts);
+        model.addAttribute("url", "/@" + username +"/recent"); // URL 수정
         return "home";
     }
 
