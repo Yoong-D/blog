@@ -1,11 +1,40 @@
 # 블로그 만들기  프로젝트
 ##### 프로젝트 진행 기간 : ~ 2024.07.19(10day) (단독)
-##### IDE : Intellij Professional
-##### Famework : Spring 6.1.6
-##### dependencies : Spring Boot(3.3.1) DevTools, Lombok, Spring Web, Spring Data JDBC, Thymeleaf, Validation, Spring Security6, Spring JPA
-##### Language : Java 21, Html 5, CSS
-##### Database : Mysql 8.4.0
-##### ETC : JWT, Token(Access, Refresh), RestApi, Docker 
+
+##### 개발 도구
+- **IntelliJ IDEA Professional**
+
+##### 프레임워크 및 라이브러리
+- **Spring Framework**
+  - Spring 6.1.6
+  - Spring Boot 3.3.1
+  - Spring Web
+  - Spring Data JDBC
+  - Spring Security 6
+  - Spring JPA
+- **Lombok**
+- **Thymeleaf**
+- **Validation**
+
+##### 프로그래밍 언어 및 기술
+- **Java** 21
+- **HTML5**
+- **CSS**
+
+##### 데이터베이스
+- **MySQL** 8.4.0
+
+##### 인증 및 보안
+- **JWT** (JSON Web Tokens)
+  - Access Token
+  - Refresh Token
+
+##### API
+- **REST API**
+
+##### 도구 및 컨테이너화
+- **Docker**
+
 
 
 ## 구현 모습 
