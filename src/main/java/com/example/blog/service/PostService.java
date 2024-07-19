@@ -128,5 +128,9 @@ public class PostService {
         postRepository.deleteById(id);
     }
 
+    // 검색 게시글 찾기
+    public List<Post> searchPosts(String search) {
+        return postRepository.findBySearch(search);
+    }
 
 }

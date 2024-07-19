@@ -12,14 +12,23 @@
     <div id="login">
         <img id="logoImg" src="/img/logo.png" alt="메인 로고" width="90" height="90">
         <p id="siteName">VELOG STORE</p>
-        <form action="/search" method="get" id="searchForm">
+        <form action="/search" method="GET" id="searchForm">
             <div class="search-container">
-                <input id="searchVal" type="text" placeholder="검색어를 입력하세요">
+                <input id="searchVal" type="text" placeholder="검색어를 입력하세요" name="search">
                 <button id="searchBtn" type="submit"></button>
             </div>
         </form>
         <button id="loginBtn"><a href="/loginform">로그인</a></button>
     </div>
+    <script>
+        document.getElementById("searchBtn").addEventListener('click', function (event){
+            event.preventDefault(); // 기본 폼 제출 동작을 막음
+            let search = document.getElementById("searchVal").value;
+            search = encodeURIComponent(search);
+            document.getElementById('searchForm').action = `/search?search=${search}`;
+            document.getElementById('searchForm').submit(); // 폼을 수동으로 제출
+        });
+    </script>
 </header>
 
 </body>

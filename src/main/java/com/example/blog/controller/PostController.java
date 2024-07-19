@@ -78,5 +78,17 @@ public class PostController {
         return "home";
     }
 
+    // 검색창 찾기 (제목, 내용, 사용자 )
+    @GetMapping("/search")
+    public String search(@RequestParam(name = "search", required = false) String search, Model model){
+        log.info("검색어 :" + search);
+        List<Post> posts = postService.searchPosts(search);
+        log.info(posts.toString());
+        model.addAttribute("posts", posts);
+        model.addAttribute("recentUrl", "/recent");
+        model.addAttribute("url", "off"); // 페이징처리 끄기
+        return "home";
+    }
+
 
 }

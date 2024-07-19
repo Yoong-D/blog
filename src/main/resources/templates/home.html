@@ -42,6 +42,7 @@
 </nav>
 
 <!-- 게시글 -->
+<!--th:if="${user != null}"-->
 <section>
     <div th:if="${!posts.empty}" class="post-container">
         <!-- posts 리스트를 순회하며 각각의 Post 객체를 출력 -->
@@ -60,7 +61,7 @@
         </div>
     </div>
 </section>
-<section>
+<section th:unless="${url == 'off'}">
     <!--페이징 처리 부분-->
     <div class="page" th:if="${posts != null and not #lists.isEmpty(posts)}">
         <ul id="pageNumber">
