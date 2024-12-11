@@ -5,9 +5,7 @@
 - **IntelliJ IDEA Professional**
 
 ##### 프레임워크 및 라이브러리
-- **Spring Framework**
-  - Spring 6.1.6
-  - Spring Boot 3.3.1
+- **Spring Boot 3.3.1**
   - Spring Web
   - Spring Data JDBC
   - Spring Security 6
